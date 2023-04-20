@@ -19,28 +19,36 @@ exports.createTables = function() {
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
 app.use(bodyParser.json());
 //serve up the html-page aka our client side html/css/js
 app.get('/', function(req, res){
     res.sendFile(path.join(__dirname + '/index.html'));
 })
 //set up a REST service attached to the sqlite3 DB via POST form
-app.post('/post_user', function (req, res) {
+app.post('/new_user', function (req, res) {
     if(!req.body){ return res.sendStatus(400) }
     else{
-        console.log(req.body);
-        var db = new sqlite3.Database('mwd310_db.sql');
         db.serialize(function() {
-            var stmt = db.prepare("INSERT INTO PWDS VALUES (?,?)");
-            stmt.run(req.body.User,req.body.Password);
+            var stmt = db.prepare("INSERT INTO USERS VALUES (?, ?, ?)");
+            stmt.run(req.body.username,req.body.password, req.body.email);
             stmt.finalize();
-            //query the database to see what is inside it now....
-            db.each("SELECT rowid AS id,user FROM PWDS", function(err, row) {
-                console.log(row.id + ": " + row.user);
-            });
         }); //don't forget to close the database connection...
         db.close();
-        res.send({"message":"Good Work!"})
+        res.send({"message":"You created a new user!"})
+    }
+})
+
+app.post('/new_note', function (req, res) {
+    if(!req.body){ return res.sendStatus(400) }
+    else{
+        db.serialize(function() {
+            var stmt = db.prepare("INSERT INTO NOTES VALUES (?, ?, ?)");
+            stmt.run(req.body.title,req.body.date, req.body.text);
+            stmt.finalize();
+        }); //don't forget to close the database connection...
+        db.close();
+        res.send({"message":"You created a new note!"})
     }
 })
 
