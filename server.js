@@ -3,6 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var db = require('./db');
 var app = express();
+var tables = require('./db/tables');
 
 //middleware here-------------------------------------------
 app.use(cookieParser());
@@ -76,4 +77,7 @@ app.get('/get_cookie', function(req, res) {
     console.log("Cookies :  ", req.cookies);
 });
 
-app.listen(8080, () => console.log('cookie/authentication app listening on port 8080!'));
+app.listen(8080, function() {
+    console.log('cookie/authentication app listening on port 8080!')
+    tables.createTables();
+});

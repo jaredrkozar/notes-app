@@ -1,21 +1,27 @@
 //import all of the node.js modules we need like express, path and sqlite3...
-var sqlite3 = require('sqlite3').verbose();
+var sqlite3 = require('sqlite3');
 var express = require('express')
 var bodyParser = require('body-parser')
 var path = require('path')
 var app = express()
 
-var db = new sqlite3.Database('notes_app.sql');
+let db = new sqlite3.Database('notesapp.db', (err) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log('Connected to the in-memory SQlite database.');
+  });
 
 exports.createTables = function() {
     db.serialize(function() {
         //make the notes table
-        db.run("CREATE TABLE IF NOT EXISTS USERS (username VARCHAR(255), password VARCHAR(50), email VARCHAR(50), user_id BIGINT(255) AUTO_INCREMENT, PRIMARY KEY (user_id))");
-        db.run("CREATE TABLE IF NOT EXISTS NOTES (title VARCHAR(255), creationDate date, noteText VARCHAR(255), note_id BIGINT(255) AUTO_INCREMENT, user_id BIGINT(255), FOREIGN KEY(user_id) REFERENCES USERS(user_id)");
+        db.run("CREATE TABLE IF NOT EXISTS USERS (username VARCHAR(255), password VARCHAR(50), email VARCHAR(50), user_id BIGINT(255), PRIMARY KEY (user_id))");
+        db.run("CREATE TABLE IF NOT EXISTS NOTES (title VARCHAR(255), creationDate date, noteText VARCHAR(255), note_id BIGINT(255), user_id BIGINT(255), FOREIGN KEY(user_id) REFERENCES USERS(user_id), PRIMARY KEY (note_id))");
     }); //don't forget to close the database connection...
     db.close();
 }
 
+console.log("Tables created")
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -51,6 +57,3 @@ app.post('/new_note', function (req, res) {
         res.send({"message":"You created a new note!"})
     }
 })
-
-//start up the REST services for GET and POST methods
-app.listen(8080, () => console.log('Example app listening on port 8080!'))
