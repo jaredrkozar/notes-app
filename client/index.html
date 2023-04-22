@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="base_styles.css">
     <link rel="stylesheet" href="client.css">
     <meta charset="UTF-8">
     <title>Hello Fused</title>
@@ -10,11 +11,15 @@
 </head>
 <body>
     <div class="loginform">
-        <h1>Notes</h1>
-        <form id="login_idx" action="/login" method="post">
+        <h1 id="title">Notes</h1>
         <label>Username:</label><input type="text" name="username"/>
+        <br><br>
         <label>Password:</label><input type="password" name="password"/>
-        <input type="submit" value="Log In"/></form>
+        <br><br>
+        <div class="buttons">
+            <button type="button" id="loginbutton">Log In</button>
+            <button type="button" id="createaccbutton">Create Account</button>
+        </div>
     </div>
 </body>
 </html>
