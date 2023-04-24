@@ -7,7 +7,15 @@ var tables = require('./db/tables');
 
 //middleware here-------------------------------------------
 app.use(cookieParser());
-app.use('/', express.static(path.join(__dirname,'/client')));
+app.use('/css', express.static(path.join(__dirname,'/public/css')));
+
+app.get('/login', (req, res) => {
+    res.sendFile(__dirname + '/public/html/index.html')
+})
+
+app.get('/createaccount', (req, res) => {
+    res.sendFile(__dirname + '/public/html/createaccount.html')
+})
 
 //password authentication with passport------------------------------------------------------------------
 var passport = require('passport');
@@ -50,11 +58,7 @@ passport.deserializeUser(function(id, cb) {
 // });
 
 //handle the login route from the username/password client form
-app.post('/login',
-  passport.authenticate('local', { failureRedirect: '/error' }),
-  function(req, res) {
-    res.redirect('/success?username='+req.user.username);
-});
+
 app.get('/success', (req, res) => res.send("Welcome "+req.query.username+"!!"));
 app.get('/error', (req, res) => res.send("Error!"));
 //----------------------------------------------------------------------------------

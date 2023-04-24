@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&display=swap');
+
 :root {
     --text-color: #000000;
     --bg-color: #ffffff; 
@@ -21,6 +23,7 @@ button {
     padding: 10px;
     border-radius: 10px;
     font-size: 20px;
+    font-family: 'Open Sans', sans-serif;
 }
 
 button:hover {
