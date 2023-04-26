@@ -63,23 +63,23 @@ app.get('/success', (req, res) => res.send("Welcome "+req.query.username+"!!"));
 app.get('/error', (req, res) => res.send("Error!"));
 //----------------------------------------------------------------------------------
 
-//set cookie
-app.get('/set_cookie', function(req, res){
-    console.log('cookie set request');
-	res.cookie('richard', '10',{expire : new Date() + 1}).send('Cookie is set');
-});
+app.post('/createaccount', async function (req, res) {
+    const isInDB = await tables.usernameExists(req.body.username);
+    if (isInDB == true) {
+        alert("Another user has this username. Please choose another username");
+    } else {
+        tables.queryTable("INSERT INTO USERS (username, password) VALUES (?,?)", [req.body.username, req.body.password]);
+    }
+})
 
-//delete cookie
-app.delete('/delete_cookie', function(req,res){
-    console.log('cookie set request');
-    res.clearCookie('richard');
-    res.send('Cookie deleted');
-});
-
-//get the cookie
-app.get('/get_cookie', function(req, res) {
-    console.log("Cookies :  ", req.cookies);
-});
+app.post('/login', async function (req, res) {
+    const isInDB = await tables.usernameExists(req.body.username);
+    if (isInDB == true) {
+        console.log("DLDLDLDLDLD")
+    } else {
+        res.alert("ddddd")
+    }
+})
 
 app.listen(8080, function() {
     console.log('cookie/authentication app listening on port 8080!')
