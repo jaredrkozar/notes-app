@@ -7,14 +7,18 @@ var tables = require('./db/tables');
 
 //middleware here-------------------------------------------
 app.use(cookieParser());
-app.use('/css', express.static(path.join(__dirname,'/public/css')));
+app.use(express.static(path.join(__dirname,'/public')));
 
-app.get('/login', (req, res) => {
-    res.sendFile(__dirname + '/public/html/index.html')
+app.get('/:userid/noteList', (req, res) => {
+    res.sendFile(__dirname + '/public/html/mainview.html')
 })
 
 app.get('/createaccount', (req, res) => {
     res.sendFile(__dirname + '/public/html/createaccount.html')
+})
+
+app.get('/login', (req, res) => {
+    res.sendFile(__dirname + '/public/html/index.html')
 })
 
 //password authentication with passport------------------------------------------------------------------
@@ -73,11 +77,13 @@ app.post('/createaccount', async function (req, res) {
 })
 
 app.post('/login', async function (req, res) {
-    const isInDB = await tables.usernameExists(req.body.username);
-    if (isInDB == true) {
-        console.log("DLDLDLDLDLD")
+    const isInDB = await tables.doesUserExist(req.body.username, req.body.password);
+    console.log(isInDB[0])
+    console.log(isInDB[0].user_id + '/noteList')
+    if (isInDB.length >= 1) {
+        res.redirect(isInDB[0].user_id + '/noteList');
     } else {
-        res.alert("ddddd")
+        res.redirect('/login');
     }
 })
 

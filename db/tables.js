@@ -16,23 +16,28 @@ exports.createTables = function() {
     }); //don't forget to close the database connection...
 }
 
-exports.queryTable = function(query, params) {
-    db.serialize(function() {
-        //make the notes table
-        db.run(query, params);
-    });
+exports.queryTable = async function(query, params) {
+    return await db_query(query, params);
 }
 
-exports.usernameExists = async function(username) {
+exports.doesUserExist = async function(username, password) {
 
-    let statement = "SELECT * FROM USERS WHERE username = " + '"' + username + '"'
-    let isInDB = await db_all(statement);
-    return isInDB.length >= 1;
+    let statement = "SELECT * FROM USERS WHERE username = " + '"' + username + '" AND password=' + '"' + password + '"'
+   return await db_all(statement);
 }
 
 async function db_all(query){
     return new Promise(function(resolve,reject){
         db.all(query, function(err,rows){
+            if(err){return reject(err);}
+            resolve(rows);
+        });
+    });
+}
+
+async function db_query(query, params){
+    return new Promise(function(resolve,reject){
+        db.query(query, params, function(err,rows){
             if(err){return reject(err);}
             resolve(rows);
         });

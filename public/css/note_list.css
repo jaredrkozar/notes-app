@@ -1,0 +1,52 @@
+.mainView {
+    display: flex;
+    height: 100%
+    width: 100%;
+}
+
+.sidebar {
+    top: 0px;
+    left: 0px;
+    width: 35%;
+    height: max-content;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    width: full;
+    height: 60px;
+    align-items: center;
+}
+
+#notetitle {
+    flex: 1;
+    font-family: 'Open Sans', sans-serif;
+}
+
+span {
+    margin-right: 20px;
+}
+
+.noNoteSelected {
+     font-family: 'Open Sans', sans-serif;
+     position: relative;
+    background-color: green;
+    text-align: center;
+ }
+
+ .noteView {
+     display: flex;
+     align-items: center;
+     vertical-align: middle;
+     justify-content: center;
+    background-color: rebeccapurple;
+     width: 100%;
+     height: 900px;
+ }
+
+ #w3review {
+     position: relative;
+     height: 900px;
+     width: 300px;
+ }

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../css/base_styles.css">
+    <link rel="stylesheet" href="../css/note_list.css">
+    <link rel="stylesheet" href="../css/note_view.css">
+    <meta charset="UTF-8">
+    <title>Hello Fused</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,600,0,-25" />
+</head>
+<body>
+<div class="mainView">
+     <div class="sidebar">
+         <div class="navbar">
+             <h2 id="notetitle">Note List</h2>
+             <span class="material-symbols-outlined" onclick="newNote()">
+                add_circle
+                </span>
+         </div>
+         <div class="notesTable">
+         </div>
+     </div>
+    <div class="noteView">
+
+        <div class="noNoteSelected">
+
+            <h1 id="noNoteSelectedTitle">No Note Selected</h1>
+            <h3 id="noNoteSelectedMessage">Select a note on the left sidebar</h3>
+        </div>
+
+        <div class="noteFields">
+
+            <p><label for="w3review">Review of W3Schools:</label></p>
+            <textarea id="w3review" name="w3review"></textarea>
+        </div>
+    </div>
+</div>
+<script src="../client.js"></script>
+</body>
+</html>
