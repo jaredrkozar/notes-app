@@ -15,7 +15,7 @@
 <div class="mainView">
      <div class="sidebar">
          <div class="navbar">
-             <h2 id="notetitle">Note List</h2>
+             <h2 id="headertitle">Note List</h2>
              <span class="material-symbols-outlined" onclick="newNote()">
                 add_circle
                 </span>
@@ -24,7 +24,7 @@
          </div>
      </div>
     <div class="noteView">
-
+        <button type="submit" id="saveNoteButton">Save Note</button>
         <div class="noNoteSelected">
 
             <h1 id="noNoteSelectedTitle">No Note Selected</h1>
@@ -33,8 +33,11 @@
 
         <div class="noteFields">
 
-            <p><label for="w3review">Review of W3Schools:</label></p>
-            <textarea id="w3review" name="w3review"></textarea>
+            <label for="notetitle">Note Title</label>
+            <textarea id="notetitlefield" name="notetitle" placeholder="Enter the note's title here..."></textarea>
+            <br><br>
+            <label for="notetext">Note Text</label>
+            <textarea id="notetextfield" name="notetext" placeholder="Enter the note's title here..."></textarea>
         </div>
     </div>
 </div>
