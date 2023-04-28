@@ -78,8 +78,6 @@ app.post('/createaccount', async function (req, res) {
 
 app.post('/login', async function (req, res) {
     const isInDB = await tables.doesUserExist(req.body.username, req.body.password);
-    console.log(isInDB[0])
-    console.log(isInDB[0].user_id + '/noteList')
     if (isInDB.length >= 1) {
         res.redirect(isInDB[0].user_id + '/noteList');
     } else {

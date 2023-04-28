@@ -29,39 +29,41 @@ span {
 }
 
 .noNoteSelected {
-     font-family: 'Open Sans', sans-serif;
-     position: relative;
+    font-family: 'Open Sans', sans-serif;
+    position: relative;
     text-align: center;
- }
+}
 
- .noteView {
-     display: flex;
-     align-items: flex-end;
-     justify-content: center;
-     flex-direction: column;
-     width: 100%;
-     height: 900px;
-     margin-right: 40px;
-     margin-top: 20px;
- }
+.noteView {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 900px;
+    margin-right: 40px;
+    margin-top: 20px;
+}
 
- .noteFields {
-     width: inherit;
-     height: inherit;
-     display: flex;
-     gap: 10px;
-     justify-content: start;
- }
 
- #notetitlefield, #notetextfield {
-     width: 100%;
-     vertical-align: center;
- }
+.textFields {
+    width: inherit;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: start;
+}
+
+#notetitlefield, #notetextfield {
+    width: 100%;
+    vertical-align: center;
+}
 
 #notetextfield {
     height: 75%;
 }
 
-#saveNoteButton {
-    position: relative;
+.textFields > *:first-child {
+    margin-left: auto;
 }
