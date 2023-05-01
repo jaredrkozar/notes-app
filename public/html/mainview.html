@@ -21,6 +21,7 @@
                 </span>
          </div>
          <div class="notesTable">
+
          </div>
      </div>
     <div class="noteView">
@@ -31,7 +32,10 @@
         </div>
 
         <div class="textFields">
-            <button type="submit" id="saveNoteButton" onclick="saveNote()">Save Note</button>
+            <div class="buttons">
+                <button type="submit" id="deleteNoteButton" onclick="deleteNote()">Delete Note</button>
+                <button type="submit" id="saveNoteButton" onclick="saveNote()">Save Note</button>
+            </div>
             <label for="notetitle">Note Title</label>
             <textarea id="notetitlefield" name="notetitle" placeholder="Enter the note's title here..."></textarea>
             <br><br>

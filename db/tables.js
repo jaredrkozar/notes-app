@@ -22,7 +22,8 @@ exports.queryTable = async function(query, params) {
 }
 
 exports.fetchAllNotes = async function(userID) {
-    return await db_all("SELECT * FROM NOTES WHERE user_id=(?)", [userID]);
+    const notes = await db_all("SELECT * FROM NOTES WHERE user_id=(?)", [userID]);
+    return notes;
 }
 
 exports.doesUserExist = async function(username, password) {
@@ -31,9 +32,9 @@ exports.doesUserExist = async function(username, password) {
    return await db_all(statement);
 }
 
-async function db_all(query){
+async function db_all(query, params){
     return new Promise(function(resolve,reject){
-        db.all(query, function(err,rows){
+        db.all(query, params, function(err,rows){
             if(err){return reject(err);}
             resolve(rows);
         });

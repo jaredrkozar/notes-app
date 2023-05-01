@@ -5,6 +5,7 @@
     --bg-color: #ffffff;
     --textarea-color: #d9d9d9;
     --active-textarea-color: #0368ff;
+    --destructive-action: #ff0303;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -13,6 +14,7 @@
         --bg-color: #2b2b2b;
         --textarea-color: #3d3d3d;
         --active-textarea-color: #8eb7ff;
+        --destructive-action: #ff5050;
     }
 }
 

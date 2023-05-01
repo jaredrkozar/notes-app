@@ -23,9 +23,9 @@ app.get('/login', (req, res) => {
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname,'/public')));
 
-app.get('/:userid/fetchNotes', (req, res) => {
-    const notes = tables.fetchAllNotes(req.params.userid)
-    res.json("notes");
+app.get('/:userid/fetchNotes', async function (req, res) {
+    const notes = await tables.fetchAllNotes(req.params.userid)
+    res.json(notes);
 })
 
 //password authentication with passport------------------------------------------------------------------
@@ -79,12 +79,21 @@ app.use(cors({
 }));
 
 app.post('/saveNote', async function (req, res) {
-    console.log("req")
-    console.log(req)
-    console.log(req.params)
-    console.log(req.body)
-    console.log(req.url)
-    // tables.queryTable("INSERT INTO NOTES (title, creationDate, noteText) VALUES (?,?,?)", [req.body.username, req.body.password]);
+    let ts = Date.now();
+    let date_ob = new Date(ts);
+    if (req.body.body.noteid != undefined) {
+        tables.queryTable("UPDATE NOTES SET title=(?), noteText=(?) WHERE user_id=(?) AND note_id=(?)", [req.body.body.title, req.body.body.text, req.body.body.userid, req.body.body.noteid])
+    } else {
+        tables.queryTable("INSERT INTO NOTES (title, creationDate, noteText, user_id) VALUES (?,?,?,?)", [req.body.body.title, date_ob, req.body.body.text, req.body.body.userid]);
+    }
+})
+
+app.post('/deleteNote', async function (req, res) {
+    let ts = Date.now();
+    let date_ob = new Date(ts);
+    if (req.body.body.noteid != undefined) {
+        tables.queryTable("DELETE FROM NOTES WHERE user_id=(?) AND note_id=(?)", [req.body.body.userid, req.body.body.noteid])
+    }
 })
 
 app.listen(8080, function() {
