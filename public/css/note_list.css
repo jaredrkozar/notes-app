@@ -76,18 +76,13 @@ span {
     height: calc(100% - 65px);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 1px;
     overflow: scroll;
-    background-color: red;
     padding-bottom: -50px;
 }
 
-.noteCell {
-    background-color: green;
-}
-
-.noteSelected {
-    background-color: blue;
+.selectedNote {
+    background-color: var(--active-textarea-color);
     border-radius: 10px;
 }
 
@@ -112,4 +107,22 @@ span {
     position: relative;
     height: 90px;
     width: 90px;
+}
+
+.noteTitle {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 24px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    position: relative;
+}
+
+
+.noteText {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    position: relative;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    overflow: hidden;
 }

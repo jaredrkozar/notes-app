@@ -34,9 +34,9 @@ async function getNotes() {
             for(let i = 0; i<data.length;i++) {
                 let currentNote = document.createElement("div");
                 currentNote.classList.add('noteCell')
-                let noteTitle = document.createElement('h1')
+                let noteTitle = document.createElement('h2')
                 noteTitle.classList.add('noteTitle')
-                noteTitle.innerHTML = `<h1>${data[i].title}</h1>`;
+                noteTitle.innerHTML = `<h2>${data[i].title}</h2>`;
                 let noteText = document.createElement('h2')
                 noteText.classList.add('noteText')
                 noteText.innerHTML = `<h2>${data[i].noteText}</h2>`;
@@ -44,7 +44,13 @@ async function getNotes() {
                 currentNote.appendChild(noteText)
                 notesTableView.appendChild(currentNote)
                 currentNote.addEventListener("click", function() {
+                    let selectedNote = document.getElementsByClassName("selectedNote")
+                    if (selectedNote.length > 0) {
+                        selectedNote[0].classList.remove('selectedNote')
+                    }
+
                     selectNote(data[i].title, data[i].noteText, data[i].note_id)
+                    currentNote.classList.add('selectedNote')
                 })
             }
         }
@@ -52,6 +58,7 @@ async function getNotes() {
 }
 
 function newNote() {
+    currentNoteID = undefined
     document.getElementById("deleteNoteButton").style.display = "none"
     noteTextView.style.display = "flex"
     noNoteView.style.display = "none"
