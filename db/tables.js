@@ -26,11 +26,16 @@ exports.fetchAllNotes = async function(userID) {
     return notes;
 }
 
-exports.doesUserExist = async function(username, password) {
+exports.doesUserExist = async function(username, cb) {
+   const row = await db_query("SELECT * FROM USERS WHERE username=(?)", [username])
 
-    let statement = "SELECT * FROM USERS WHERE username = " + '"' + username + '" AND password=' + '"' + password + '"'
-   return await db_all(statement);
+    if (row.username === username) {
+        return cb(null, row);
+    }
+
+    return cb(null, null);
 }
+
 
 async function db_all(query, params){
     return new Promise(function(resolve,reject){

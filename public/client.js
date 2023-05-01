@@ -2,6 +2,9 @@ let noNoteView = document.getElementsByClassName("noNoteSelected")[0]
 let noteTextView = document.getElementsByClassName("textFields")[0]
 let notesTableView = document.getElementsByClassName("notesTable")[0]
 
+let usernameTextField = document.getElementById("usernameField")
+let passwordTextField = document.getElementById("passwordField")
+
 let titleTextView = document.getElementById("notetitlefield")
 let bodyTextView = document.getElementById("notetextfield")
 

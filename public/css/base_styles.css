@@ -65,3 +65,7 @@ h1, label {
 input, label {
     display:block;
 }
+
+:root {
+    color-scheme: light;
+}
