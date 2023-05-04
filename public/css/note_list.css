@@ -145,6 +145,7 @@ span {
 .selectFolderButton:focus {
     outline: none;
 }
+
 .selectFolderButton:hover {
     background-color: orange;
     color: white;

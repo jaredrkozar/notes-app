@@ -16,9 +16,9 @@ let settingsScreen = document.getElementsByClassName("settings")[0]
 let mainView = document.getElementsByClassName("viewWithNote")[0]
 
 async function getNotes() {
-    //gets notes from ths epcififed folder
+    //gets notes from ths specified folder
 
-    //gets user from url
+    //gets users notes from database
     const arrayStrings = window.location.href.split("/");
     while (notesTableView.hasChildNodes()) {
         notesTableView.removeChild(notesTableView.firstChild)
