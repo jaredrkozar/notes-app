@@ -97,7 +97,7 @@ span {
 
 #deleteNoteButton:hover {
     background-color: var(--destructive-action);
-    color: var(--text-color);
+    color: white;
 }
 
 #foldersButton {
@@ -107,7 +107,7 @@ span {
 
 #foldersButton:hover {
     background-color: var(--destructive-action);
-    color: var(--text-color);
+    color: white;
 }
 
 .buttons {
@@ -152,6 +152,11 @@ span {
     -webkit-appearance: none;
 }
 
+.selectFolderButton:hover {
+    background-color: orange;
+    color: white;
+}
+
 .section {
     font-size: 20px;
     font-family: 'Open Sans', sans-serif;
@@ -183,4 +188,19 @@ span {
     font-family: 'Open Sans', sans-serif;
     display: flex;
     flex-direction: column;
+}
+
+#deleteAccountButton {
+    border-color: var(--destructive-action);
+    color: var(--text-color);
+}
+
+#deleteAccountButton:hover {
+    background-color: var(--destructive-action);
+    color: white;
+}
+
+#saveNoteButton:hover {
+    background-color: var(--active-textarea-color);
+    color: white;
 }
