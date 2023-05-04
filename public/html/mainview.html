@@ -22,41 +22,69 @@
 
         </div>
     </div>
-     <div class="sidebar">
-         <div class="navbar">
-             <h2 id="headertitle">Note List</h2>
-             <span class="material-symbols-outlined" onclick="newNote()">
-                add_circle
-                </span>
-         </div>
-         <div class="notesTable">
+    <div class="settings">
+        <div class="settingsSection">
+            <h2>Change Password</h2>
 
-         </div>
-     </div>
-    <div class="noteView">
-        <div class="noNoteSelected">
-
-            <h1 id="noNoteSelectedTitle">No Note Selected</h1>
-            <h3 id="noNoteSelectedMessage">Select a note on the left sidebar</h3>
+            <label>Old Password:</label><input id="oldpasswordField" type="password" name="password"/>
+            <br><br>
+            <label>New Password:</label><input id="newpasswordField" type="password" name="password"/>
+            <br><br>
+            <label>New Password Again:</label><input id="newpasswordSecondField" type="password" name="password"/>
+            <br><br>
+            <button type="submit" id="changePasswordButton" onclick="changePassword()">Change Password</button>
         </div>
 
-        <div class="textFields">
-            <div class="buttons">
-                <select class="selectFolderButton" onchange="folderSelected()">
-                    <option value="nofolder">Select Folder (none)</option>
-                    <option value="newfolder">New Folder</option>
-                </select>
+        <div class="settingsSection">
+            <h2>Log Out of Account</h2>
 
-                <button type="submit" id="deleteNoteButton" onclick="deleteNote()">Delete Note</button>
-                <button type="submit" id="saveNoteButton" onclick="saveNote()">Save Note</button>
-            </div>
-            <label for="notetitle">Note Title</label>
-            <textarea id="notetitlefield" name="notetitle" placeholder="Enter the note's title here..."></textarea>
-            <br><br>
-            <label for="notetext">Note Text</label>
-            <textarea id="notetextfield" name="notetext" placeholder="Enter the note's text here..."></textarea>
-        </form>
+            <button type="submit" onclick="logOut()">Log Out</button>
+        </div>
+
+        <div class="settingsSection">
+            <h2>Log Out of Account</h2>
+
+            <button type="submit" onclick="deleteAccount()">Delete Account</button>
+        </div>
     </div>
+    <div class="viewWithNote">
+        <div class="sidebar">
+            <div class="navbar">
+                <h2 id="headertitle">Note List</h2>
+                <span class="material-symbols-outlined" onclick="newNote()">
+                add_circle
+                </span>
+            </div>
+            <div class="notesTable">
+
+            </div>
+        </div>
+        <div class="noteView">
+            <div class="noNoteSelected">
+
+                <h1 id="noNoteSelectedTitle">No Note Selected</h1>
+                <h3 id="noNoteSelectedMessage">Select a note on the left sidebar</h3>
+            </div>
+
+            <div class="textFields">
+                <div class="buttons">
+                    <select class="selectFolderButton" onchange="folderSelected()">
+                        <option value="nofolder">Select Folder (none)</option>
+                        <option value="newfolder">New Folder</option>
+                    </select>
+
+                    <button type="submit" id="deleteNoteButton" onclick="deleteNote()">Delete Note</button>
+                    <button type="submit" id="saveNoteButton" onclick="saveNote()">Save Note</button>
+                </div>
+                <label for="notetitle">Note Title</label>
+                <textarea id="notetitlefield" name="notetitle" placeholder="Enter the note's title here..."></textarea>
+                <br><br>
+                <label for="notetext">Note Text</label>
+                <textarea id="notetextfield" name="notetext" placeholder="Enter the note's text here..."></textarea>
+                </form>
+            </div>
+    </div>
+
 </div>
 <script src="../client.js"></script>
 </body>

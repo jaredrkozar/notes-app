@@ -48,7 +48,6 @@ exports.doesUserExist = async function(username, cb) {
 
 
 async function db_all(query, params){
-    console.log(query)
     return new Promise(function(resolve,reject){
         db.all(query, params, function(err,rows){
             if(err){return reject(err);}

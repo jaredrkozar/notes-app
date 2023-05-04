@@ -11,6 +11,15 @@ app.get('/:userid/noteList', (req, res) => {
     res.sendFile(__dirname + '/public/html/mainview.html')
 })
 
+app.get('/:userid/returnOldPassword', async function (req, res) {
+    const password = await tables.queryTable("SELECT password FROM USERS WHERE user_id=(?)", [req.params.userid])
+    res.json(password)
+})
+
+app.post('/:userid/:newPassword/setNewPassword', async function (req, res) {
+    await tables.queryTable("UPDATE USERS SET password=(?) WHERE user_id=(?)", [req.params.newPassword, req.params.userid])
+})
+
 app.get('/createaccount', (req, res) => {
     res.sendFile(__dirname + '/public/html/createaccount.html')
 })
@@ -19,11 +28,16 @@ app.get('/login', (req, res) => {
     res.sendFile(__dirname + '/public/html/index.html')
 })
 
+app.post('/:userid/deleteAccount', async function (req, res) {
+    await tables.queryTable("DELETE FROM USERS WHERE user_id=(?)", [req.params.userid])
+})
 
 //middleware here-------------------------------------------
+app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname,'/public')));
 app.use(passport.initialize());
+app.use(passport.session());
 
 app.get('/:userid/:folderName/fetchNotes', async function (req, res) {
     const notes = await tables.fetchAllNotes(req.params.userid, req.params.folderName)
@@ -37,7 +51,14 @@ app.get('/:userid/fetchAllFolders', async function (req, res) {
 
 app.use(require('morgan')('combined'));
 app.use(require('body-parser').urlencoded({ extended: true }));
-app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+
+app.post('/logout', function(req, res, next) {
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        res.redirect('/login');
+    });
+});
+
 
 // app.get('/logout',
 //   function(req, res){
