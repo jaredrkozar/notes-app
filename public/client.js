@@ -115,7 +115,7 @@ function folderSelected() {
         addFolderSection(folderName, 99)
 
     } else if (dropdown.value == "nofolder") {
-        folderName = "none"
+        folderName = "Unfiled Notes"
     } else {
         folderName = dropdown.value;
     }
@@ -147,7 +147,6 @@ function addFolderSection(name, id) {
     item.innerHTML = `<h2>${name}</h2>`;
     //if the id is 0 (all notes is selected), sets selectedfoldername to undefined so it can get all notes from database
     item.addEventListener("click", async function() {
-        console.log(id)
         if (id != 500) {
             mainView.style.display = "flex"
             settingsScreen.style.display = "none"
@@ -166,23 +165,25 @@ function addFolderSection(name, id) {
 }
 
 function deleteAccount() {
+    //deletes account
     const arrayStrings = window.location.href.split("/");
     $.post("/" + arrayStrings[3] + "/deleteAccount");
     $.get("/logout");
 }
 
 function logOut() {
+    //logs out (doesnt work)
     $.get("/logout");
 }
 
 async function changePassword() {
+    //changes password
     const arrayStrings = window.location.href.split("/");
     let oldPassword = document.getElementById("oldpasswordField").value
     let newPassword = document.getElementById("newpasswordField").value
     let newPasswordSecond = document.getElementById("newpasswordSecondField").value
 
     $.get("/" + arrayStrings[3] + '/returnOldPassword', function(data){
-        console.log(newPasswordSecond)
         if ((oldPassword == data.password) && (newPassword == newPasswordSecond)) {
             $.post("/" + arrayStrings[3] + '/' + newPassword + '/setNewPassword')
         }

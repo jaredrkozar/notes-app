@@ -59,19 +59,6 @@ app.post('/logout', function(req, res, next) {
     });
 });
 
-
-// app.get('/logout',
-//   function(req, res){
-//     req.logout();
-//     res.redirect('/');
-// });
-//
-// app.get('/profile',
-//   require('connect-ensure-login').ensureLoggedIn(),
-//   function(req, res){
-//     res.redirect('/logout');
-// });
-
 //handle the login route from the username/password client form
 
 app.get('/success', (req, res) => res.send("Welcome "+req.query.username+"!!"));
@@ -83,6 +70,7 @@ app.use(cors({
 }));
 
 passport.use(new LocalStrategy(async function verify(username, password, cb) {
+    //strategy to login
     tables.doesUserExist(username, function(err, user) {
         if (err) { return cb(err); }
         if (!user) { return cb(null, false); }
@@ -110,6 +98,7 @@ app.post('/login',
     });
 
 app.post('/createaccount', async function(req, res, next) {
+    //creates an account by inserting users into table
     await tables.queryTable('INSERT INTO users (username, password) VALUES (?, ?)', [req.body.username, req.body.password]);
     const getUserID = await fetchUserID(req.body.username)
     var user = {
@@ -123,7 +112,7 @@ app.post('/createaccount', async function(req, res, next) {
 });
 
 app.post('/saveNote', async function (req, res) {
-    let ts = Date.now();
+    //saves notes, if the noteid is undefined it creates a new note, if it exists then it updates the note with the users id
     if (req.body.body.noteid != undefined) {
         await tables.queryTable("UPDATE NOTES SET title=(?), noteText=(?), folderName=(?) WHERE user_id=(?) AND note_id=(?)", [req.body.body.title, req.body.body.text, req.body.body.folderName, req.body.body.userid, req.body.body.noteid])
     } else {
@@ -132,6 +121,7 @@ app.post('/saveNote', async function (req, res) {
 })
 
 app.post('/deleteNote', async function (req, res) {
+    //deletes note with the matching userid and noteid
     if (req.body.body.noteid != undefined) {
         await tables.queryTable("DELETE FROM NOTES WHERE user_id=(?) AND note_id=(?)", [req.body.body.userid, req.body.body.noteid])
     }
@@ -143,6 +133,8 @@ app.listen(8080, function() {
 });
 
 async function fetchUserID(username) {
+
+    //fetches the userid that corresponds to the selected username
     const id = await tables.queryTable("SELECT user_id from USERS where username=(?)", [username])
     return id.user_id
 }
