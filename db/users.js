@@ -14,11 +14,6 @@ exports.findById = function(id, cb) {
   });
 }
 
-exports.printName = function() {
-  console.log('dldldld');
-}
-
-
 exports.findByUsername = function(username, cb) {
   process.nextTick(function() {
     for (var i = 0, len = records.length; i < len; i++) {

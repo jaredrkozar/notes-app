@@ -6,7 +6,6 @@ var tables = require('./db/tables');
 const cors = require('cors');
 var passport = require('passport');
 const LocalStrategy = require("passport-local");
-const crypto = require("crypto");
 
 app.get('/:userid/noteList', (req, res) => {
     res.sendFile(__dirname + '/public/html/mainview.html')
@@ -26,9 +25,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname,'/public')));
 app.use(passport.initialize());
 
-app.get('/:userid/fetchNotes', async function (req, res) {
-    const notes = await tables.fetchAllNotes(req.params.userid)
+app.get('/:userid/:folderName/fetchNotes', async function (req, res) {
+    const notes = await tables.fetchAllNotes(req.params.userid, req.params.folderName)
     res.json(notes);
+})
+
+app.get('/:userid/fetchAllFolders', async function (req, res) {
+    const folders = await tables.returnUniqueFolders(req.params.userid)
+    res.json(folders);
 })
 
 app.use(require('morgan')('combined'));
@@ -100,17 +104,15 @@ app.post('/createaccount', async function(req, res, next) {
 app.post('/saveNote', async function (req, res) {
     let ts = Date.now();
     if (req.body.body.noteid != undefined) {
-        tables.queryTable("UPDATE NOTES SET title=(?), noteText=(?) WHERE user_id=(?) AND note_id=(?)", [req.body.body.title, req.body.body.text, req.body.body.userid, req.body.body.noteid])
+        await tables.queryTable("UPDATE NOTES SET title=(?), noteText=(?), folderName=(?) WHERE user_id=(?) AND note_id=(?)", [req.body.body.title, req.body.body.text, req.body.body.folderName, req.body.body.userid, req.body.body.noteid])
     } else {
-        tables.queryTable("INSERT INTO NOTES (title, creationDate, noteText, user_id) VALUES (?,?,?,?)", [req.body.body.title, ts, req.body.body.text, req.body.body.userid]);
+        await tables.queryTable("INSERT INTO NOTES (title, noteText, folderName, user_id) VALUES (?,?,?,?)", [req.body.body.title, req.body.body.text, req.body.body.folderName, req.body.body.userid]);
     }
 })
 
 app.post('/deleteNote', async function (req, res) {
-    let ts = Date.now();
-    let date_ob = new Date(ts);
     if (req.body.body.noteid != undefined) {
-        tables.queryTable("DELETE FROM NOTES WHERE user_id=(?) AND note_id=(?)", [req.body.body.userid, req.body.body.noteid])
+        await tables.queryTable("DELETE FROM NOTES WHERE user_id=(?) AND note_id=(?)", [req.body.body.userid, req.body.body.noteid])
     }
 })
 
