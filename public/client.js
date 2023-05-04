@@ -95,6 +95,8 @@ function selectNote(noteTitle, noteText, folderName, noteID) {
 function folderSelected() {
     if (dropdown.value == "newfolder") {
         folderName = prompt("Please enter a name for this folder");
+        addFolderSection(folderName, 99)
+
     } else if (dropdown.value == "nofolder") {
         folderName = "none"
     } else {
@@ -103,15 +105,12 @@ function folderSelected() {
 }
 
 async function populateFolderValues() {
+
     addFolderSection("All Notes", 0);
     const arrayStrings = window.location.href.split("/");
     $.get("/" + arrayStrings[3] + '/fetchAllFolders', function(data){
 
         for (let i = 0; i<data.length;i++) {
-            let option = document.createElement("option");
-            option.text = data[i].folderName;
-            dropdown.add(option);
-
             addFolderSection(data[i].folderName, i+1)
         }
     })
@@ -119,6 +118,11 @@ async function populateFolderValues() {
 
 function addFolderSection(name, id) {
 
+    if (id != 0) {
+        let option = document.createElement("option");
+        option.text = name;
+        dropdown.add(option);
+    }
     let item = document.createElement('h2')
     item.classList.add('section')
     item.innerHTML = `<h2>${name}</h2>`;
@@ -128,7 +132,6 @@ function addFolderSection(name, id) {
         } else {
             selectedFolderName = name
         }
-        console.log(selectedFolderName)
         await getNotes()
     })
     foldersSidebarList.appendChild(item)
