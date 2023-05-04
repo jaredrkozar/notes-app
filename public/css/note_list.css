@@ -100,16 +100,6 @@ span {
     color: white;
 }
 
-#foldersButton {
-    border-color: var(--destructive-action);
-    color: var(--text-color);
-}
-
-#foldersButton:hover {
-    background-color: var(--destructive-action);
-    color: white;
-}
-
 .buttons {
     display: flex;
     flex-direction: row;
@@ -152,6 +142,9 @@ span {
     -webkit-appearance: none;
 }
 
+.selectFolderButton:focus {
+    outline: none;
+}
 .selectFolderButton:hover {
     background-color: orange;
     color: white;
