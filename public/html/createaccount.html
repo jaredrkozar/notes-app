@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/base_styles.css">
+    <link rel="stylesheet" href="css/accountPages.css">
+    <meta charset="UTF-8">
+    <title>Hello Fused</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="loginform">
+        <h1 id="title">Notes</h1>
+        <h1 id="titletext">Create Your Account</h1>
+        <form id="login_idx" action="/createaccount" method="post">
+            <label>Username:</label><input type="text" name="username"/>
+            <br><br>
+            <label>Password:</label><input type="password" name="password"/>
+            <br><br>
+            <div class="buttons">
+                <button type="submit" id="loginbutton">Create Account</button>
+            </div>
+        </form>
+        <button type="button" id="switchbutton"><a href="/login">Already have an account? You can log in here</a></button>
+    </div>
+</body>
+</html>
